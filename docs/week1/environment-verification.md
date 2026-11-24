@@ -6,7 +6,7 @@
 | 时区 | Asia/Shanghai |
 | 角色 | 开发工程师 |
 | 验证环境 | Windows 11，项目目录 `D:\Codex_Code\SmartDailySystem` |
-| 结论 | 本地 Python 开发与测试环境可用；`uv` 未安装；GitHub SSH（443 端口）认证与远端读取通过 |
+| 结论 | 本地 Python 开发与测试环境可用；`uv` 未安装；GitHub SSH（443 端口）认证、读取和 `liugang/main` 推送均通过 |
 
 ## 1. 验证命令
 
@@ -62,6 +62,6 @@ Remove-Item -LiteralPath "data\verification.sqlite3" -ErrorAction SilentlyContin
 
 ## 4. 处置与复验
 
-1. 仓库 `origin` 使用 `ssh://git@ssh.github.com:443/ssw666-code/-.git`，完成首次推送。
+1. 仓库 `origin` 使用 `ssh://git@ssh.github.com:443/ssw666-code/liugang.git`，已设置 `main` 跟踪并完成推送。
 2. 如需使用 `uv`，安装后重新运行 `scripts/verify_environment.py`，该项应从 `WARN` 变为 `PASS`。
 3. 后续加入第三方依赖时，必须提供可复现的锁文件和安装说明。
