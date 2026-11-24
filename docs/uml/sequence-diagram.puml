@@ -1,0 +1,45 @@
+@startuml
+autonumber
+
+actor "Scheduler / CLI" as User
+participant "DailyReportApplication" as App
+participant "Collectors" as Collectors
+participant "ReportGenerator" as Generator
+participant "SQLiteReportRepository" as Repository
+participant "ReportSender" as Sender
+database "SQLite" as DB
+
+User -> App: run(report_date, actors_by_source)
+loop each configured collector
+  App -> Collectors: collect(actor_ids, start_at, end_at)
+  alt source succeeds
+    Collectors --> App: CollectedEvent[]
+  else source fails
+    Collectors --> App: CollectorError
+    App -> App: append warning and continue
+  end
+end
+App -> Generator: generate(report_date, events)
+Generator --> App: DailyReport
+App -> Repository: save_report(report, events)
+Repository -> DB: upsert events, report, report_events
+DB --> Repository: stored result
+Repository --> App: StoredReport
+App -> Repository: has_successful_delivery(report_id, fingerprint, recipients)
+Repository -> DB: query delivery_attempts
+DB --> Repository: sent record exists?
+Repository --> App: true / false
+alt not delivered
+  App -> Sender: send(report, recipients)
+  alt send succeeds
+    Sender --> App: success
+    App -> Repository: record_delivery(status=sent)
+  else send fails
+    Sender --> App: DeliveryError
+    App -> Repository: record_delivery(status=failed)
+  end
+else already delivered
+  App -> App: delivery_status=skipped
+end
+App --> User: RunResult
+@enduml

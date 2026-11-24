@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+skinparam classAttributeIconSize 0
+skinparam classFontSize 16
+skinparam nodesep 25
+skinparam ranksep 35
+
+interface Collector
+class GitHubCollector
+class FeishuTaskCollector
+class FeishuMessageCollector
+class MockCollector
+
+interface ReportSender
+class SmtpEmailSender
+class OutboxEmailSender
+
+Collector <|.. GitHubCollector
+Collector <|.. FeishuTaskCollector
+Collector <|.. FeishuMessageCollector
+Collector <|.. MockCollector
+ReportSender <|.. SmtpEmailSender
+ReportSender <|.. OutboxEmailSender
+@enduml

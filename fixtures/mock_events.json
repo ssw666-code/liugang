@@ -1,0 +1,46 @@
+[
+  {
+    "source": "github",
+    "actor": "alice",
+    "occurred_at": "2026-11-24T09:10:00+08:00",
+    "summary": "提交：实现 GitHub 采集器",
+    "external_id": "github:mock-a01",
+    "url": "https://github.com/example/repo/commit/mock-a01"
+  },
+  {
+    "source": "feishu_task",
+    "actor": "alice",
+    "occurred_at": "2026-11-24T10:20:00+08:00",
+    "summary": "任务：完成日报生成规则评审",
+    "external_id": "feishu_task:mock-a02"
+  },
+  {
+    "source": "github",
+    "actor": "bob",
+    "occurred_at": "2026-11-24T11:05:00+08:00",
+    "summary": "提交：补充分页与重试测试",
+    "external_id": "github:mock-b01",
+    "url": "https://github.com/example/repo/commit/mock-b01"
+  },
+  {
+    "source": "feishu_message",
+    "actor": "bob",
+    "occurred_at": "2026-11-24T13:30:00+08:00",
+    "summary": "沟通：已确认邮件发送失败记录格式",
+    "external_id": "feishu_message:mock-b02"
+  },
+  {
+    "source": "feishu_task",
+    "actor": "carol",
+    "occurred_at": "2026-11-24T14:15:00+08:00",
+    "summary": "任务：完成 SQLite 幂等验证",
+    "external_id": "feishu_task:mock-c01"
+  },
+  {
+    "source": "feishu_message",
+    "actor": "carol",
+    "occurred_at": "2026-11-24T15:40:00+08:00",
+    "summary": "沟通：整理 v1 集成测试证据",
+    "external_id": "feishu_message:mock-c02"
+  }
+]

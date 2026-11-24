@@ -1,0 +1,59 @@
+@startuml
+top to bottom direction
+skinparam classAttributeIconSize 0
+skinparam classFontSize 16
+skinparam nodesep 35
+skinparam ranksep 45
+
+class DailyReportApplication {
+  +run(report_date, actors_by_source) RunResult
+}
+
+interface Collector {
+  +source: str
+  +collect(actor_ids, start_at, end_at) list[CollectedEvent]
+}
+
+interface ReportSender {
+  +send(report, recipients) None
+}
+
+class ReportGenerator {
+  +generate(report_date, events) DailyReport
+}
+
+class SQLiteReportRepository {
+  +save_report(report, events) StoredReport
+  +has_successful_delivery(...) bool
+  +record_delivery(...) None
+}
+
+class DailyReport {
+  +report_date: date
+  +entries: tuple[ReportEntry, ...]
+}
+
+class ReportEntry {
+  +actor: str
+  +highlights: tuple[str, ...]
+  +source_event_ids: tuple[str, ...]
+}
+
+class CollectedEvent {
+  +source: str
+  +actor: str
+  +occurred_at: datetime
+  +summary: str
+  +external_id: str
+  +url: str | None
+}
+
+DailyReportApplication --> Collector
+DailyReportApplication --> ReportGenerator
+DailyReportApplication --> SQLiteReportRepository
+DailyReportApplication --> ReportSender
+ReportGenerator --> DailyReport
+DailyReport *-- ReportEntry
+ReportEntry --> CollectedEvent
+Collector ..> CollectedEvent : returns
+@enduml

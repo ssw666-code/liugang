@@ -4,11 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "smart-daily-system"
-version = "0.1.0"
+version = "1.0.0"
 description = "SDD-based team daily report automation system"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []
+
+[project.optional-dependencies]
+dev = ["ruff>=0.17,<1"]
 
 [project.scripts]
 smart-daily = "smart_daily_system.cli:main"

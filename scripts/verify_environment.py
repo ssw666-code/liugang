@@ -54,7 +54,9 @@ def collect_checks() -> list[CheckResult]:
             _command_version("uv", "--version"),
             required=False,
         ),
-        CheckResult("specs directory", (PROJECT_ROOT / "specs").is_dir(), str(PROJECT_ROOT / "specs")),
+        CheckResult(
+            "specs directory", (PROJECT_ROOT / "specs").is_dir(), str(PROJECT_ROOT / "specs")
+        ),
         CheckResult("source directory", (PROJECT_ROOT / "src").is_dir(), str(PROJECT_ROOT / "src")),
         CheckResult("Git repository", (PROJECT_ROOT / ".git").exists(), str(PROJECT_ROOT / ".git")),
     ]

@@ -16,9 +16,23 @@ class CollectedEvent:
     external_id: str
     url: str | None = None
 
+    def __post_init__(self) -> None:
+        if not self.source.strip():
+            raise ValueError("source must not be empty")
+        if not self.actor.strip():
+            raise ValueError("actor must not be empty")
+        if self.occurred_at.tzinfo is None or self.occurred_at.utcoffset() is None:
+            raise ValueError("occurred_at must include a timezone")
+        if not self.summary.strip():
+            raise ValueError("summary must not be empty")
+        if not self.external_id.strip():
+            raise ValueError("external_id must not be empty")
+
 
 class Collector(Protocol):
     """Boundary implemented by each external data-source adapter."""
+
+    source: str
 
     def collect(
         self,
